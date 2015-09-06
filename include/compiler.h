@@ -41,10 +41,31 @@ namespace compiler {
 	};
 
 	// placeholder for an arithmetic operator
-	struct opRec;
+	struct opRec {
 
+		opToken op;
+
+	};
 	// place holder for an expression
-	struct exprRec;
+	struct exprRec {
+
+		exprKind kind;
+		int val;
+		std::string name;
+
+	};
+
+
+	/*
+		start
+
+		precondition -
+		none
+
+		postcondition -
+		initializes maxTemporary and lastSymbol to 0
+	 */
+	 void start ();
 
 	/*
 		 generate
@@ -177,7 +198,7 @@ namespace compiler {
 		 generates the code to write an expression into the provided
 		 expression record
 	 */
-	void writeExpr ();
+	void writeExpr (const exprRec& target);
 
 	/*
 		 genInfix

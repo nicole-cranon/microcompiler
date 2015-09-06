@@ -11,42 +11,42 @@
 namespace compiler {
 
 	unsigned maxTemporary = 0,
-					 lastSymbol = 0;
+			lastSymbol = 0;
 
-	std::string symbolTable[MAX_SYMBOL] = 0;
+	std::string symbolTable[MAX_SYMBOL];
 
 	std::ofstream outFile;
 
-	struct opRec {
+	void start () {
 
-		opToken op;
+		maxTemporary = 0,
+			lastSymbol = 0;
 
-	};
-
-	struct exprRec {
-
-		exprKind kind;
-		int val;
-		std::string name;
-
-	};
+	}
 
 	void generate (const std::string& s1,
 			const std::string& s2,
 			const std::string& s3,
 			const std::string& s4) {
 
-		if (s1.size() && s2.size() && s3.size())	{
+		if ( s1.size() && s2.size() && s3.size() && s4.size()) {
 
-			outFile << s1 << ',' << s2 << ',' << s3;
+			outFile << s1 << ',' << s2 << ',' << s3 << ',' << s4 << '\n';
+
+		}
+
+		else if (s1.size() && s2.size() && s3.size())	{
+
+			outFile << s1 << ',' << s2 << ',' << s3 << '\n';
 
 		}
 
-		else if ( s1.size() && s2.size() && s3.size() && s4.size()) {
+		else if (s1.size() && (s2.size()==0) && (s1.compare("Halt") == 0)) {
 
-			outFile << s1 << ',' << s2 << ',' << s3 << ',' << s4;
+			outFile << s1 << '\n';
 
 		}
+
 
 	}
 
@@ -95,17 +95,18 @@ namespace compiler {
 
 		bool found = false;
 
-		for (int i = 0; i < MAX_SYMBOL; ++i) {
+		for (unsigned i = 0; i < lastSymbol; ++i) {
 
-			if (symbolTable[i] ==  idName) {
+			if (symbolTable[i].compare(idName) == 0) {
 
-				return found = true;
+				found = true;
+				return found;
 
 			}
 
 		}
 
-		return found = false;
+		return found;
 
 	}
 
@@ -133,7 +134,7 @@ namespace compiler {
 
 			enter (idName);
 
-			generate ("Declare", "S", "Integer", "");
+			generate ("Declare", idName, "Integer", "");
 
 		}
 
@@ -219,10 +220,8 @@ namespace compiler {
 
 	void finish () {
 
-		outFile << "Halt";
+		generate ("Halt", "", "", "");
 
 	}
-
-	
 
 }

@@ -4,7 +4,7 @@
 # makefile
 
 CC=g++ -std=c++11
-CFLAGS=-c -Wall 
+CFLAGS=-c -Wall -g
 INC=-I ./include -I ./src/microparser/include -I ./src/microparser/src/microscanner/include
 
 compile: main.o compiler.o parser.o scanner.o 
@@ -20,7 +20,7 @@ parser.o: ./src/microparser/src/parser.cpp
 	$(CC) $(INC) $(CFLAGS) ./src/microparser/src/parser.cpp -o parser.o
 
 scanner.o: ./src/microparser/src/microscanner/src/scanner.cpp
-	$(CC) $(INC) $(CFLAGS)-c ./src/microparser/src/microscanner/src/scanner.cpp -o scanner.o
+	$(CC) $(INC) $(CFLAGS) ./src/microparser/src/microscanner/src/scanner.cpp -o scanner.o
 
 clean:
 	rm *.o; rm compile
