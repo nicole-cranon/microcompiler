@@ -1,20 +1,32 @@
 /*
-   nicole cranon <nicole.cranon@ucdenver.edu>
-   csci 4640, fall 2015
-   assignment 3 - microcompiler -  a simple adhoc compiler
+	 nicole cranon <nicole.cranon@ucdenver.edu>
+	 csci 4640, fall 2015
+	 assignment 3 - microcompiler -  a simple adhoc compiler
  */
 
 #ifndef _COMPILER
 #define _COMPILER
 
-#include "parser.h"
+#include "scanner.h"
 
 namespace compiler {
 
-  // arthmetic operators
-  enum opToken {
+	extern std::ofstream outFile;
 
-    MinusOp = scanner::MinusOp,
+	// max number of temporaries allocated thus far
+	extern unsigned maxTemporary;
+
+	// max size of and symbol table
+	const int MAX_SYMBOL = 1000;
+	extern std::string symbolTable [MAX_SYMBOL];
+
+	// current size of symbol table
+	extern unsigned lastSymbol;
+
+	// arthmetic operators
+	enum opToken {
+
+		MinusOp = scanner::MinusOp,
 		PlusOp = scanner::PlusOp
 
 	};
@@ -135,13 +147,13 @@ namespace compiler {
 		 assign
 
 		 precondition -
-		 a target id, and a a source expression record
+		 a target and a a source expression record
 
 		 postcondition -
 		 generates the code to store the source information in the target
 	 */
-	void assign (const std::string& target, 
-		const exprRec& e);
+	void assign (const exprRec& target, 
+			const exprRec& e);
 
 	/*
 		 readId
@@ -153,7 +165,7 @@ namespace compiler {
 		 generates the code to read an expression into provided 
 		 expression record
 	 */
-	void readId (exprRec& inVar);
+	void readId (const exprRec& inVar);
 
 	/*
 		 writeExpr
@@ -177,8 +189,8 @@ namespace compiler {
 		 generates the code for eTemp = e1 op e2 (i.e. A + B), returns eTemp
 	 */
 	exprRec genInfix (const exprRec& e1, 
-		const opRec& op, 
-		const exprRec& e2);
+			const opRec& op, 
+			const exprRec& e2);
 
 	/*
 		 processId
@@ -204,26 +216,26 @@ namespace compiler {
 	void processLiteral (exprRec& e);
 
 	/*
-		processOp
+		 processOp
 
-		precondition - 
-		an operatoration record
+		 precondition - 
+		 an operatoration record
 
-		postcondition -
-		produce operator descriptor
+		 postcondition -
+		 produce operator descriptor
 	 */
-	 void processOp (opRec& op);
+	void processOp (opRec& o);
 
 	/*
-		finish
+		 finish
 
-		precondition -
-		none
+		 precondition -
+		 none
 
-		postcondition -
-		generates the code to hat the program
+		 postcondition -
+		 generates the code to hat the program
 	 */
-	 void finish ();
+	void finish ();
 
 }
 

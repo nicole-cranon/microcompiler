@@ -12,6 +12,6 @@ int main (int argc, char* argv[]) {
   compiler::opToken Current;
   Current = compiler::PlusOp;
 
-  std::cout << scanner::token_type[Current] << '\n';
+  std::cout << scanner::token_type[Current] << std::to_string(3) << '\n';
 
 }
