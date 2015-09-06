@@ -4,8 +4,14 @@
   assignment 3 - microcompiler - a simple adhoc compiler
  */
 
-#include "../include/compiler.h"
+#include "compiler.h"
+#include <iostream>
 
-int main (int argc char* argv[]) {
+int main (int argc, char* argv[]) {
+  
+  compiler::opToken Current;
+  Current = compiler::PlusOp;
+
+  std::cout << scanner::token_type[Current] << '\n';
 
 }

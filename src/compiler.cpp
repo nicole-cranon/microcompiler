@@ -4,8 +4,24 @@
   assignment 3 - microcompiler - a simple adhoc compiler
  */
 
-#include "../include/compiler.h"
+#include "compiler.h"
 
 namespace compiler {
+
+  struct opRec {
+
+    opToken op;
+
+  };
+
+  struct exprRec {
+
+    exprKind kind;
+    int val;
+    std::string name;
+
+  };
+
+  void readId (exprRec& inVar);
 
 }
