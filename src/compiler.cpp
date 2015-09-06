@@ -22,6 +22,8 @@ namespace compiler {
 
   };
 
-  void readId (exprRec& inVar);
+  void readId (exprRec& inVar) {
+
+	}
 
 }

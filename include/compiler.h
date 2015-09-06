@@ -140,7 +140,8 @@ namespace compiler {
 		 postcondition -
 		 generates the code to store the source information in the target
 	 */
-	void assign (const std::string& target, const exprRec& e);
+	void assign (const std::string& target, 
+		const exprRec& e);
 
 	/*
 		 readId
@@ -175,7 +176,9 @@ namespace compiler {
 		 postcondition -
 		 generates the code for eTemp = e1 op e2 (i.e. A + B), returns eTemp
 	 */
-	exprRec genInfix (const exprRec& e1, const opRec& op, const exprRec& e2);
+	exprRec genInfix (const exprRec& e1, 
+		const opRec& op, 
+		const exprRec& e2);
 
 	/*
 		 processId
@@ -199,6 +202,28 @@ namespace compiler {
 		 convert literal to a numeric representation and build a semantic record
 	 */
 	void processLiteral (exprRec& e);
+
+	/*
+		processOp
+
+		precondition - 
+		an operatoration record
+
+		postcondition -
+		produce operator descriptor
+	 */
+	 void processOp (opRec& op);
+
+	/*
+		finish
+
+		precondition -
+		none
+
+		postcondition -
+		generates the code to hat the program
+	 */
+	 void finish ();
 
 }
 
